@@ -3,9 +3,13 @@
     font-family: 'Roboto', sans-serif;
     padding: 0;
     margin: 0;
+}body{
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-rows: 69px 1fr;
+    width: 100%;
 }.nav{
-    min-width: 200px;
-    max-width: 20%;
+    grid-row: span 2;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -26,4 +30,31 @@
     text-align: center;
     padding: 20px;
     background-color: rgb(139, 80, 3);
+    color: white;
+}.menu-bar{
+    width: 100%;
+    background-color: rgb(139, 80, 3);
+    height: 69px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}.menu-item{
+    background: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.79rem;
+    border:none;
+    /* padding: 20px; */
+    color: white;
+    gap: 20px;
+    width: 44px;
+    height: 44px;
+    margin: 20px;
+}.fa-user{
+    border: white 2px solid;
+    border-radius: 2rem;
+    padding: 5px;
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
 }
