@@ -50,14 +50,20 @@ export default function popupAdd(){
 
     popupForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        let todo = {
+        let todo = localStorage.getItem("todoItems");
+        todo = JSON.parse(todo);
+        if(todo == undefined || !todo ||todo == null){
+            todo = []
+        }
+        let addtodo = {
             title: popupInputTitle.value,
             content: popupInputDescription.value,
             dueDate: popupInputDate.value,
             done: false
         }
-        document.cookie = `todo=${JSON.stringify(todo)},expires=Thu, 18 Dec 2021 12:00:00 UTC; path=/; sameSite=strict`;
+        todo.push(addtodo);
+        localStorage.setItem("todoItems", JSON.stringify(todo));
         popupBackground.remove();
-    }
-    );
+        document.location.reload();
+    });
 };

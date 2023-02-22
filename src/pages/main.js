@@ -3,43 +3,47 @@ import MenuBar from "./components/menuBar";
 import popupAdd from "./components/popupAdd";
 
 
-//
-//Paceholder for todolist
-//
-
 export default function Main() {
     Nav();
     MenuBar();
-    let todoitems = [];
-    if(document.cookie){
-        todoitems = document.cookie.split(";").map((todo) => {
-            return JSON.parse(todo.split("=")[1]);
-        }
-        );
+    let todoitems = localStorage.getItem("todoItems");
+    if (todoitems == null) {
+        todoitems = [];
+    }else{
+        todoitems = JSON.parse(todoitems);
+        console.log(todoitems);
     }
+
     let content = document.createElement("main");
     document.body.appendChild(content);
+    
     let todoList = document.createElement("div");
     todoList.classList.add("todo-list");
     content.appendChild(todoList);
+    
     let headers = document.createElement("div");
     headers.classList.add("headers");
 
     let headerTitle = document.createElement("h3");
     headerTitle.classList.add("header-text");
     headerTitle.textContent = "done?";
+    
     let headerContent = document.createElement("h3");
     headerContent.classList.add("header-text");
     headerContent.textContent = "Title & Description";
+    
     let headerDate = document.createElement("h3");
     headerDate.classList.add("header-text");
     headerDate.textContent = "Due Date";
+    
     let headerRemove = document.createElement("h3");
     headerRemove.classList.add("header-text");
     headerRemove.textContent = "Remove";
     headers.append(headerTitle, headerContent, headerDate, headerRemove);
     todoList.appendChild(headers);
-    todoitems.forEach((todo) => {
+    
+    console.log(todoitems.length);
+    todoitems.forEach(todo => {
         let todoItem = document.createElement("div");
         todoItem.classList.add("todo-item");
         todoList.appendChild(todoItem);
@@ -69,11 +73,25 @@ export default function Main() {
         }else{
             todoDone.removeAttribute("checked");
         }
+        todoDone.addEventListener("click", () => {
+            let todoitems = localStorage.getItem("todoItems");
+            todoitems = JSON.parse(todoitems);
+            todoitems.forEach(todo => {
+                if (todo.title == todoTitle.textContent) {
+                    todo.done = !todo.done;
+                    }
+            });
+            localStorage.setItem("todoItems", JSON.stringify(todoitems));
+        });
         let todoRemove = document.createElement("button");
         todoRemove.classList.add("todo-remove");
         todoRemove.innerHTML = `<i class="fa-solid fa-x"></i>`;
         todoRemove.addEventListener("click", () => {
             todoItem.remove();
+            let todoitems = localStorage.getItem("todoItems");
+            todoitems = JSON.parse(todoitems);
+            todoitems.splice(todoitems.indexOf(todo), 1);
+            localStorage.setItem("todoItems", JSON.stringify(todoitems));
         });
         todoText.append(todoTitle, todoContent);
         todoItem.append(todoText, todoDueDate, todoDone, todoRemove);
