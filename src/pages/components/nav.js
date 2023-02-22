@@ -1,3 +1,5 @@
+import today from "../scripts/today";
+
 let navItems = ["today","this week", "projects", "settings"];
 
 

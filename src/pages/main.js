@@ -1,12 +1,12 @@
 import Nav from "./components/nav";
 import MenuBar from "./components/menuBar";
-import popupAdd from "./components/popupAdd";
+import popup from "./components/popup";
 
 
 export default function Main() {
     Nav();
     MenuBar();
-    let todoitems = localStorage.getItem("todoItems");
+    let todoitems = localStorage.getItem("defaultTodo");
     if (todoitems == null) {
         todoitems = [];
     }else{
@@ -62,7 +62,6 @@ export default function Main() {
 
         let todoDueDate = document.createElement("p");
         todoDueDate.classList.add("todo-due-date");
-        
         todoDueDate.textContent = todo.dueDate.split("-").reverse().join(".");
 
         let todoDone = document.createElement("input");
@@ -83,6 +82,7 @@ export default function Main() {
             });
             localStorage.setItem("defaultTodo", JSON.stringify(todoitems));
         });
+
         let todoRemove = document.createElement("button");
         todoRemove.classList.add("todo-remove");
         todoRemove.innerHTML = `<i class="fa-solid fa-x"></i>`;
@@ -93,13 +93,31 @@ export default function Main() {
             todoitems.splice(todoitems.indexOf(todo), 1);
             localStorage.setItem("defaultTodo", JSON.stringify(todoitems));
         });
+        
+        let todoEdit = document.createElement("button");
+        todoEdit.classList.add("todo-edit");
+        todoEdit.innerHTML = `<i class="fa-solid fa-edit"></i>`;
+        todoEdit.addEventListener("click", e => {
+            let todoitems = localStorage.getItem("defaultTodo");
+            todoitems = JSON.parse(todoitems);
+            let helper = e.target.parentNode.querySelector(".todo-title").textContent; 
+            todoitems.forEach(todo => {
+                if (todo.title == helper) {
+                    popup("edit", todo);
+                }
+            }
+            )
+        });
+
         todoText.append(todoTitle, todoContent);
-        todoItem.append(todoText, todoDueDate, todoDone, todoRemove);
+        todoItem.append(todoText, todoDueDate, todoDone, todoRemove, todoEdit);
     }
     )
     let button = document.createElement("button");
     button.classList.add("add-todo");
     button.textContent = "+ Add Todo";
     todoList.appendChild(button);
-    button.addEventListener("click", popupAdd);
+    button.addEventListener("click", () => {
+        popup("add");
+    });
 }
