@@ -100,10 +100,11 @@ export default function Main() {
         todoEdit.addEventListener("click", e => {
             let todoitems = localStorage.getItem("defaultTodo");
             todoitems = JSON.parse(todoitems);
+            console.log(todoitems)
             let helper = e.target.parentNode.querySelector(".todo-title").textContent; 
             todoitems.forEach(todo => {
                 if (todo.title == helper) {
-                    popup("edit", todo);
+                    popup("edit", todoitems.indexOf(todo));
                 }
             }
             )
