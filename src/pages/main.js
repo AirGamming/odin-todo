@@ -74,24 +74,24 @@ export default function Main() {
             todoDone.removeAttribute("checked");
         }
         todoDone.addEventListener("click", () => {
-            let todoitems = localStorage.getItem("todoItems");
+            let todoitems = localStorage.getItem("defaultTodo");
             todoitems = JSON.parse(todoitems);
             todoitems.forEach(todo => {
                 if (todo.title == todoTitle.textContent) {
                     todo.done = !todo.done;
                     }
             });
-            localStorage.setItem("todoItems", JSON.stringify(todoitems));
+            localStorage.setItem("defaultTodo", JSON.stringify(todoitems));
         });
         let todoRemove = document.createElement("button");
         todoRemove.classList.add("todo-remove");
         todoRemove.innerHTML = `<i class="fa-solid fa-x"></i>`;
         todoRemove.addEventListener("click", () => {
             todoItem.remove();
-            let todoitems = localStorage.getItem("todoItems");
+            let todoitems = localStorage.getItem("defaultTodo");
             todoitems = JSON.parse(todoitems);
             todoitems.splice(todoitems.indexOf(todo), 1);
-            localStorage.setItem("todoItems", JSON.stringify(todoitems));
+            localStorage.setItem("defaultTodo", JSON.stringify(todoitems));
         });
         todoText.append(todoTitle, todoContent);
         todoItem.append(todoText, todoDueDate, todoDone, todoRemove);

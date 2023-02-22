@@ -50,7 +50,7 @@ export default function popupAdd(){
 
     popupForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        let todo = localStorage.getItem("todoItems");
+        let todo = localStorage.getItem("defaultTodo");
         todo = JSON.parse(todo);
         if(todo == undefined || !todo ||todo == null){
             todo = []
@@ -62,7 +62,7 @@ export default function popupAdd(){
             done: false
         }
         todo.push(addtodo);
-        localStorage.setItem("todoItems", JSON.stringify(todo));
+        localStorage.setItem("defaultTodo", JSON.stringify(todo));
         popupBackground.remove();
         document.location.reload();
     });
