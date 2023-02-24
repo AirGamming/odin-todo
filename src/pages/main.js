@@ -36,10 +36,14 @@ export default function Main() {
     headerDate.classList.add("header-text");
     headerDate.textContent = "Due Date";
     
+    let headerEdit = document.createElement("h3");
+    headerEdit.classList.add("header-text");
+    headerEdit.textContent = "Edit";
+
     let headerRemove = document.createElement("h3");
     headerRemove.classList.add("header-text");
     headerRemove.textContent = "Remove";
-    headers.append(headerTitle, headerContent, headerDate, headerRemove);
+    headers.append(headerTitle, headerContent, headerDate, headerEdit, headerRemove);
     todoList.appendChild(headers);
     
     console.log(todoitems.length);
