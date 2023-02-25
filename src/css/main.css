@@ -208,6 +208,5 @@
     grid-template-columns: 80px 1fr 1fr 90px 90px;
     width: 100%;
     align-items: start;
-}.header-text{
     padding: 10px;
 }

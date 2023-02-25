@@ -1,18 +1,28 @@
 import Nav from "./components/nav";
 import MenuBar from "./components/menuBar";
 import popup from "./components/popup";
+import  today  from "./scripts/today";
 
 
-export default function Main() {
-    Nav();
+export default function Main(filterOption){
+    let filter = Nav();
     MenuBar();
     let todoitems = localStorage.getItem("defaultTodo");
     if (todoitems == null) {
         todoitems = [];
     }else{
         todoitems = JSON.parse(todoitems);
-        console.log(todoitems);
+        todoitems.filter(todo => {
+            if (filterOption == "Today") {
+                return todo.dueDate == today();
+            }else if (filterOption == "This week") {
+                return todo.dueDate.split("-")[7] == today().split("-")[7];
+            }else{
+                return
+            }
+        })
     }
+
 
     let content = document.createElement("main");
     document.body.appendChild(content);
@@ -46,8 +56,8 @@ export default function Main() {
     headers.append(headerTitle, headerContent, headerDate, headerEdit, headerRemove);
     todoList.appendChild(headers);
     
-    console.log(todoitems.length);
     todoitems.forEach(todo => {
+
         let todoItem = document.createElement("div");
         todoItem.classList.add("todo-item");
         todoList.appendChild(todoItem);
@@ -104,7 +114,6 @@ export default function Main() {
         todoEdit.addEventListener("click", e => {
             let todoitems = localStorage.getItem("defaultTodo");
             todoitems = JSON.parse(todoitems);
-            console.log(todoitems)
             let helper = e.target.parentNode.querySelector(".todo-title").textContent; 
             todoitems.forEach(todo => {
                 if (todo.title == helper) {
@@ -113,6 +122,7 @@ export default function Main() {
             }
             )
         });
+
 
         todoText.append(todoTitle, todoContent);
         todoItem.append(todoText, todoDueDate, todoDone, todoRemove, todoEdit);
@@ -125,4 +135,5 @@ export default function Main() {
     button.addEventListener("click", () => {
         popup("add");
     });
+    return filter
 }
