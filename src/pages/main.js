@@ -12,15 +12,14 @@ export default function Main(filterOption){
         todoitems = [];
     }else{
         todoitems = JSON.parse(todoitems);
-        todoitems.filter(todo => {
-            if (filterOption == "Today") {
-                return todo.dueDate == today();
-            }else if (filterOption == "This week") {
-                return todo.dueDate.split("-")[7] == today().split("-")[7];
-            }else{
-                return
-            }
-        })
+        if(filterOption == "Today"){
+            todoitems.filter(todo => {
+                console.log(todo.dueDate, today())
+                if (filterOption == "Today") {
+                    return todo.dueDate == today();
+                }
+            })
+        }
     }
 
 
@@ -135,5 +134,6 @@ export default function Main(filterOption){
     button.addEventListener("click", () => {
         popup("add");
     });
+    console.log(todoitems)
     return filter
 }

@@ -18,9 +18,10 @@ export default function Nav() {
         filter.classList.add("filter");
         nav.appendChild(filter);
         let filterOptions = ["All", "Today", "This Week"];
-        filterOptions.forEach((option) => {
+        filterOptions.forEach(option => {
             let filterOption = document.createElement("option");
             filterOption.innerHTML = option;
+            filterOption.value = option;
             filter.appendChild(filterOption);
         }
         );
