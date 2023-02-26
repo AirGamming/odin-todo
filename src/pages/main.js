@@ -21,6 +21,7 @@ export default function Main(filterOption){
             todoitems = todoitems.filter(todo => thisWeek.includes(todo.dueDate));
         }
     }
+    todoitems = todoitems.sort((a, b) => a.dueDate > b.dueDate ? 1 : -1);
 
     let oldContent = document.querySelector("main");
     if (oldContent) {
@@ -80,6 +81,14 @@ export default function Main(filterOption){
         let todoDueDate = document.createElement("p");
         todoDueDate.classList.add("todo-due-date");
         todoDueDate.textContent = todo.dueDate.split("-").reverse().join(".");
+        if(todo.dueDate < today()){
+            todoDueDate.classList.add("overdue");
+            let overdue = document.createElement("span");
+            overdue.classList.add("overdue-text");
+            overdue.innerHTML = "<br> Overdue";
+            todoDueDate.appendChild(overdue);
+
+        }
 
         let todoDone = document.createElement("input");
         todoDone.setAttribute("type", "checkbox");
