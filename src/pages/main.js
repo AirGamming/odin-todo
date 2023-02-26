@@ -12,9 +12,7 @@ export default function Main(filterOption){
     }else{
         todoitems = JSON.parse(todoitems);
         if(filterOption == "Today"){
-            console.log(today()," 2023-02-24")
             todoitems = todoitems.filter(todo => todo.dueDate == today());
-            console.log(todoitems)
         }else if(filterOption == "This week"){
             let thisWeek = [];
             for(let i = 0 ; i < 7 ; i++){
@@ -140,6 +138,4 @@ export default function Main(filterOption){
     button.addEventListener("click", () => {
         popup("add");
     });
-    console.log(todoitems)
-
 }
