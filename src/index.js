@@ -1,9 +1,13 @@
 import style from '/src/css/main.css';
 import Main from '/src/pages/main.js';
 import today from './pages/scripts/today';
-// import * as favicon from '/favicon.ico';
+import Nav from '/src/pages/components/nav.js';
+import MenuBar from '/src/pages/components/menuBar.js';
 
-let filter = Main();
+
+let filter = Nav();
+MenuBar();
+Main();
 console.log(filter)
 filter.addEventListener("change" ,item  =>{
     console.log("change" , item.target.value)

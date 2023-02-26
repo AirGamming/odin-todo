@@ -5,26 +5,32 @@ import  today  from "./scripts/today";
 
 
 export default function Main(filterOption){
-    let filter = Nav();
-    MenuBar();
+
     let todoitems = localStorage.getItem("defaultTodo");
     if (todoitems == null) {
         todoitems = [];
     }else{
         todoitems = JSON.parse(todoitems);
         if(filterOption == "Today"){
-            todoitems.filter(todo => {
-                console.log(todo.dueDate, today())
-                if (filterOption == "Today") {
-                    return todo.dueDate == today();
-                }
-            })
+            console.log(today()," 2023-02-24")
+            todoitems = todoitems.filter(todo => todo.dueDate == today());
+            console.log(todoitems)
+        }else if(filterOption == "This week"){
+            let thisWeek = [];
+            for(let i = 0 ; i < 7 ; i++){
+                thisWeek.push(today(i));
+            }
+            todoitems = todoitems.filter(todo => thisWeek.includes(todo.dueDate));
         }
     }
 
-
+    let oldContent = document.querySelector("main");
+    if (oldContent) {
+        oldContent.remove();
+    }
     let content = document.createElement("main");
     document.body.appendChild(content);
+    content.innerHTML = "";
     
     let todoList = document.createElement("div");
     todoList.classList.add("todo-list");
@@ -135,5 +141,5 @@ export default function Main(filterOption){
         popup("add");
     });
     console.log(todoitems)
-    return filter
+
 }
